@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import ProfileInfo from "./ProfileInfo";
-import PersonalInfo from "./PersonalInfo";
-import Qualification from "./Qualification";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import PersonalInfo from "./PersonalInfo/PersonalInfo";
+import Qualification from "./Qualification/Qualification";
 import Steps from "./Components/Steps";
 import { Segment } from "semantic-ui-react";
 
@@ -11,32 +11,13 @@ export default class App extends Component {
     this.state = {
       currentStep: 0,
       completedStep: -1,
-
-      username: "",
-      bio: "",
-      email: "",
-      contactNumber: "",
-      avatar: "",
-      previewAvatar: "",
-      avatarImageType: "",
-
-      firstName: "",
-      lastName: "",
-      city: "",
-      state: "",
-      zipcode: "",
-      country: "",
-      address: "",
-
-      school: "",
-      college: "",
-      postGraduate: "",
     };
   }
 
-  updateInfo = (updatedValueObj) => {
-    this.setState({ ...updatedValueObj });
-  };
+  setCompletedStep = (completedStep) => {
+    alert(completedStep);
+    this.setState({completedStep})
+  }
 
   nextStep = () => {
     let { currentStep } = this.state;
@@ -74,69 +55,32 @@ export default class App extends Component {
   };
 
   render() {
-    let {
-      currentStep,
-      completedStep,
-      avatar,
-      previewAvatar,
-      username,
-      bio,
-      email,
-      contactNumber,
-      firstName,
-      lastName,
-      city,
-      state,
-      district,
-      country,
-      zipcode,
-      address,
-      school,
-      college,
-      postGraduate,
-      avatarImageType,
-    } = this.state;
+    let { currentStep, completedStep } = this.state;
     let forms = [
       () => (
         <ProfileInfo
+          currentStep={currentStep}
+          completedStep={completedStep}
           nextStep={this.nextStep}
-          prevStep={this.prevStep}
-          jumpToStep={this.jumpToStep}
-          updateInfo={this.updateInfo}
-          avatar={avatar}
-          avatarImageType={avatarImageType}
-          previewAvatar={previewAvatar}
-          username={username}
-          bio={bio}
-          email={email}
-          contactNumber={contactNumber}
+          setCompletedStep={this.setCompletedStep}
         />
       ),
       () => (
         <PersonalInfo
+          currentStep={currentStep}
+          completedStep={completedStep}
           nextStep={this.nextStep}
           prevStep={this.prevStep}
-          jumpToStep={this.jumpToStep}
-          updateInfo={this.updateInfo}
-          firstName={firstName}
-          lastName={lastName}
-          city={city}
-          state={state}
-          district={district}
-          zipcode={zipcode}
-          address={address}
-          country={country}
+          setCompletedStep={this.setCompletedStep}
         />
       ),
       () => (
         <Qualification
+          currentStep={currentStep}
+          completedStep={completedStep}
           nextStep={this.nextStep}
           prevStep={this.prevStep}
-          jumpToStep={this.jumpToStep}
-          updateInfo={this.updateInfo}
-          school={school}
-          college={college}
-          postGraduate={postGraduate}
+          setCompletedStep={this.setCompletedStep}
         />
       ),
     ];
